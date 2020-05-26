@@ -27,7 +27,34 @@
 .App-link {
   color: #61dafb;
 }
-
+.leftSide {
+  width: 240px;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.rightSide {
+  width: calc(100% - 240px);
+  background-color: #f2f2f2;
+}
+/* .innerSection {
+  height: calc(100vh - 63px);
+  overflow-y: auto;
+  overflow-x: hidden;
+} */
+.appMain {
+  display: flex;
+}
+.fullView .leftSide {
+  display: none;
+}
+.fullView .rightSide {
+  width: 100%;
+}
+.topBarImage {
+  width: 100%;
+  margin-bottom: -5px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
