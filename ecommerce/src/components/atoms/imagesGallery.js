@@ -26,13 +26,13 @@ export default function ImagesGallery(props) {
         }
     }
 
-    const API = "http://localhost:3001?name=images&productID=";
-    var DEFAULT_QUERY = props.produstID;
+    const API = "http://localhost:3001/images?productID=";
+    var DEFAULT_QUERY = props.productID;
 
     useEffect(() => {
 
         fetch(API + DEFAULT_QUERY, {
-            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            method: 'GET', 
             headers: {
               'Content-Type': 'application/json'
             },
@@ -45,9 +45,6 @@ export default function ImagesGallery(props) {
                     setMainImage("/assets/"+result[0].url)
                     setimagesArray(result)
               },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
              (error) => {
                this.setState({
                  isLoaded: true,
@@ -55,20 +52,14 @@ export default function ImagesGallery(props) {
                });
              }
            )
-           debugger
-        setMainImage("/assets/not-found.png")
     },{})
     
-    console.log("imagesArray : "+imagesArray)
-
     return(
         <div className={classes.ImagesGalleryMain}>
             <div className={classes.topImage}>
                 <ImageThumbnail  maxWidth="360px" height="385px" border="none" url={mainImage}/>
             </div>
             <div className={classes.bottomImages}>
-            {/* {items.map(item => ( */}
-
                 {imagesArray.length > 0 &&
                     imagesArray.map((imageData , imageIndex) => (
                         <ImageThumbnail 
@@ -79,18 +70,6 @@ export default function ImagesGallery(props) {
                         />
                     ))
                 }
-                {/* {
-                    imagesArray.length > 1 &&
-                        imagesArray.map(image =>{
-                            <ImageThumbnail 
-                                onMouseEnterEvent={() => chnageURL("/assets/apple.jpg")}
-                                maxWidth="60px" 
-                                margin="5px 5px 5px 0"
-                                url="/assets/apple.jpg"
-                            />
-
-                        })
-                } */}
             </div>
         </div>
     )

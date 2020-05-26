@@ -3,42 +3,47 @@ import { useParams } from 'react-router-dom';
 import ImagesGallery from '../atoms/imagesGallery';
 import { makeStyles } from '@material-ui/core/styles';
 import ProductInnerDetail from '../atoms/productInnerDetail';
+import { Container } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
-    productDetailMain: {
-      width: '100%',
-      display: 'flex',
-    },
-    imagesGallery: {
-      width: '100%',
-      maxWidth: 360,
-      padding: 15
-      
-    },
-    roductDetailInner: {
-      padding: 15
-    },
-  }));
+  productDetailMain: {
+    width: '100%',
+    display: 'flex',
+  },
+  imagesGallery: {
+    width: '100%',
+    maxWidth: 360,
+    padding: 15
+
+  },
+  roductDetailInner: {
+    padding: 15,
+    maxWidth: 550,
+  },
+}));
 
 export default function ProductDetail(props) {
-    const classes = useStyles();
-    let { id } = useParams();
+  const classes = useStyles();
+  let { id } = useParams();
 
-    console.log(id)
+  console.log(id)
 
 
 
-    return (
+  return (
+    <Container maxWidth="lg">
       <div className={classes.productDetailMain}>
         <div className={classes.imagesGallery}>
-          <ImagesGallery produstID={id} />
+          <ImagesGallery productID={id} />
         </div>
         <div className={classes.roductDetailInner}>
-          <ProductInnerDetail produstID={id} />
+          <ProductInnerDetail productID={id} />
         </div>
       </div>
-    )
-  
+
+    </Container>
+  )
+
 }
 

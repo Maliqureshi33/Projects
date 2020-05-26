@@ -20,11 +20,12 @@ export default function ImageThumbnail(props) {
   
     const classes = useStyles();
     const onMouseEnterEvent = () => {
-      debugger
+      
       if(props.onMouseEnterEvent !== undefined) {
         props.onMouseEnterEvent()
       }
     }
+    debugger
     return(
         <div 
           className={classes.ImageThumbnail}  
@@ -38,7 +39,11 @@ export default function ImageThumbnail(props) {
           }}
           onMouseEnter={() => onMouseEnterEvent()}
         >
-          <img className={classes.image} src={props.url} alt="apple" />
+          <img 
+            className={classes.image} 
+            src={props.url === "" || props.url === undefined ? "/assets/not-found.png" : props.url} 
+            alt="apple" 
+          />
         </div>
     )
 }

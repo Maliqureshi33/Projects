@@ -1,6 +1,15 @@
 import React from 'react';
-import RecipeReviewCard from './recipeReviewCard';
+import ProductCard from './productCard';
 // const axios = require('axios').default;
+import { makeStyles } from '@material-ui/core/styles';
+
+
+  const divStyle = {
+    padding: 15,
+    display: "inline-block"
+  };
+
+
 
 const API = "http://localhost:3001?query=";
 var DEFAULT_QUERY = "";
@@ -97,9 +106,9 @@ class ItemsData extends React.Component {
       return <img src="/assets/loader.gif" alt="loader" className="loaderImage" />;
     } else {
       return (
-        <div className="d-flex">
+        <div style={divStyle}>
           {items.map(item => (
-              <RecipeReviewCard item={item} />
+              <ProductCard item={item} viewType="grid" />
           ))}
         </div>
       );

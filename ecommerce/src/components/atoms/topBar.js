@@ -15,6 +15,9 @@ import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SideMenu from './sideMenu'
+import { Link } from 'react-router-dom';
+import Cart from '../organisms/cart';
+import {useSelector} from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -87,6 +90,33 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "0 4px 7px #dddddd",
     borderRadius: 5,
     overflow: "hidden",
+  },
+  growInner: {
+    backgroundColor: "#000000",
+    padding: "20px 0"
+  },
+  Logo: {
+    textDecoration: "none",
+    color: "#ffffff",
+    cursor: "pointer"
+  },
+  LogoLast: {
+    textDecoration: "none",
+    color: "#ffffff",
+    marginLeft: 15,
+    cursor: "pointer"
+  },
+  cartMain: {
+    position: "absolute",
+    zIndex: 999,
+    top: 103,
+    right: 0,
+    boxShadow: "0 4px 7px #dddddd",
+    borderRadius: 5,
+    overflow: "hidden",
+    backgroundColor: "#ffffff",
+    width: "560px"
+
   }
 }));
 
@@ -94,7 +124,11 @@ export default function TopBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mainMenuState, setMainMenuState] = React.useState(false);
+  
+  const [cartShowState, setcartShowState] = React.useState(false);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const cartBookingData = useSelector(state => state.app.cartBookingData)
+
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -119,6 +153,9 @@ export default function TopBar(props) {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+  const toggleCart = (event) => {
+    setcartShowState(!cartShowState);
   };
 
   
@@ -182,7 +219,7 @@ export default function TopBar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar className={classes.growInner} position="static">
         <Toolbar>
           <IconButton
             edge="start"
@@ -194,9 +231,16 @@ export default function TopBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Products
-          </Typography>
+          <Link to="/" className={classes.Logo}>
+            <Typography className={classes.title} variant="h6" noWrap>
+              Home
+            </Typography>
+          </Link>
+          <Link to="/productListing" className={classes.LogoLast}>
+            <Typography className={classes.title} variant="h6" noWrap>
+              Grocery
+            </Typography>
+          </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -217,8 +261,8 @@ export default function TopBar(props) {
                 <MailIcon />
               </Badge>
             </IconButton> */}
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={0} color="secondary">
+            <IconButton aria-label="show 17 new notifications" color="inherit" onClick={()=>toggleCart()}>
+              <Badge badgeContent={cartBookingData.length} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
@@ -250,9 +294,15 @@ export default function TopBar(props) {
       {renderMenu}
       {
         mainMenuState &&
-        <div className={classes.menuItemMain}>
-          <SideMenu />
-        </div>
+          <div className={classes.menuItemMain}>
+            <SideMenu />
+          </div>
+      }
+      {
+        cartShowState &&
+          <div className={classes.cartMain}>
+            <Cart />
+          </div>
       }
     </div>
   );
